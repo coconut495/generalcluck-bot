@@ -1,0 +1,21 @@
+{
+  "name": "smashheroes-bot",
+  "version": "1.0.0",
+  "description": "SmashHeroes bot for Discord",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "keywords": [
+    "Smash",
+    "Heroes",
+    "Discord",
+    "Bot"
+  ],
+  "author": "_Auto1t",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "hypixel-api": "^1.1.0"
+  }
+}
