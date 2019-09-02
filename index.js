@@ -10,15 +10,15 @@ BOT.on('ready', () => {
 });
 
 BOT.on('message', MSG => {
-    if (MSG.content.toUpperCase().startsWith('!S')) {
-        ARGS = MSG.content.split(' ');
+    ARGS = MSG.content.split(' ');
+    if (String(ARGS[0]).toUpperCase() == '!S') {
         switch (String(ARGS[1]).toUpperCase()) {
             case 'HELP':
-                    MSG.channel.send(new EMBED()
+                MSG.channel.send(new EMBED()
                     .setColor(Math.floor(Math.random() * 16777214) + 1)
                     .setAuthor(BOT.user.username, BOT.user.avatarURL)
                     .addBlankField()
-                    .addField('To get player`s smash heroes stats', 'Use `!s (user)`')
+                    .addField('To get player`s smash heroes stats:', 'Use `!s (user)`')
                     .addBlankField()
                     .addField('To get guild stats:', 'Use `!s guild (guild)`')
                     .addBlankField()
@@ -54,13 +54,13 @@ BOT.on('message', MSG => {
                 }
             break;
             case 'GUILD':
-                HYPIXEL.findGuild('name', ARGS[2]).then(GUILDID => {
+                HYPIXEL.findGuild('name', MSG.content.slice(9)).then(GUILDID => {
                     HYPIXEL.getGuild(GUILDID['guild']).then(GUILD => {
                         GUILD = GUILD['guild'];
                         MSG.channel.send(new EMBED ()
                             .setColor(Math.floor(Math.random() * 16777214) + 1)
                             .setAuthor('Guild Stats')
-                            .setTitle(GUILD['name']).setURL('http://hypixel.net/player/'+GUILD['name'])
+                            .setTitle(GUILD['name'])
                             .addField('Name', '`'+GUILD['name']+'`', true)
                             .addField('Members', '`'+Object.keys(GUILD['members']).length+'/125`', true)
                             .addField('Total EXP', '`'+IntForm(GUILD['exp'])+'`', true)
@@ -74,7 +74,7 @@ BOT.on('message', MSG => {
                     }).catch(() => {
                         MSG.channel.send(new EMBED()
                             .setColor(Math.floor(Math.random() * 16777214) + 1)
-                            .addField('Error', 'Guild `'+ARGS[2]+'` not found')
+                            .addField('Error', 'Guild `'+MSG.content.slice(9)+'` not found')
                             .setFooter('Made by coconutto & _Auto1t')
                         );
                     });
@@ -100,12 +100,21 @@ BOT.on('message', MSG => {
                         .addField('Quits', '`'+IntForm(PLAYER['stats']['SuperSmash']['quits'], true)+'`')
                         .setFooter('Made by coconutto & _Auto1t')
                     );
-                }).catch(() => {
-                    MSG.channel.send(new EMBED()
-                        .setColor(Math.floor(Math.random() * 16777214) + 1)
-                        .addField('Error', 'Player `'+ARGS[1]+'` not found')
-                        .setFooter('Made by coconutto & _Auto1t')
-                    );
+                }).catch(ERR => {
+                    if (ARGS[2] == 'DEBUG') {
+                        MSG.channel.send(new EMBED()
+                            .setColor(Math.floor(Math.random() * 16777214) + 1)
+                            .addField('Error', 'Player `'+ARGS[1]+'` not found')
+                            .addField('DEBUG', ERR)
+                            .setFooter('Made by coconutto & _Auto1t')
+                        );
+                    } else {
+                        MSG.channel.send(new EMBED()
+                            .setColor(Math.floor(Math.random() * 16777214) + 1)
+                            .addField('Error', 'Player `'+ARGS[1]+'` not found')
+                            .setFooter('Made by coconutto & _Auto1t')
+                        );
+                    }
                 });
             break;
         }
