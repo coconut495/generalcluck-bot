@@ -60,7 +60,7 @@ BOT.on('message', MSG => {
                         MSG.channel.send(new EMBED ()
                             .setColor(Math.floor(Math.random() * 16777214) + 1)
                             .setAuthor('Guild Stats')
-                            .setTitle(GUILD['name'].setURL('https://hypixel.net/guilds/'+encodeURIComponent(ARGS[2]))
+                            .setTitle(GUILD['name'])
                             .addField('Name', '`'+GUILD['name']+'`', true)
                             .addField('Members', '`'+Object.keys(GUILD['members']).length+'/125`', true)
                             .addField('Total EXP', '`'+IntForm(GUILD['exp'])+'`', true)
