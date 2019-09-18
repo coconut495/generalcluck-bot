@@ -60,7 +60,7 @@ BOT.on('message', MSG => {
                         MSG.channel.send(new EMBED ()
                             .setColor(Math.floor(Math.random() * 16777214) + 1)
                             .setAuthor('Guild Stats')
-                            .setTitle(GUILD['name']).setURL('http://plancke.io/guild/name/'+MSG.content.slice(9))
+                            .setTitle(GUILD['name']).setURL('http://plancke.io/guild/name/'+MSG.content.slice(9)+)
                             .addField('Name', '`'+GUILD['name']+'`', true)
                             .addField('Members', '`'+Object.keys(GUILD['members']).length+'/125`', true)
                             .addField('Total EXP', '`'+IntForm(GUILD['exp'])+'`', true)
